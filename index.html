@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim's Resto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .orange-tim { color: #FF8C00; }
+        .bg-orange-tim { background-color: #FF8C00; }
+        .section-content { display: none; }
+        .active .section-content { display: block; }
+        .rotate-icon { transition: transform 0.3s ease; }
+        .active .rotate-icon { transform: rotate(180deg); }
+        .price-btn { border: 1px solid #444; padding: 10px; border-radius: 10px; flex: 1; text-align: center; font-size: 11px; font-weight: bold; cursor: pointer; }
+        .price-btn.selected { background: #FF8C00; color: #000; border-color: #FF8C00; }
+        .item-row { border-bottom: 1px solid #222; padding: 12px 0; }
+    </style>
+</head>
+<body class="pb-44">
+
+    <header class="p-6 text-center border-b border-gray-800 bg-black sticky top-0 z-50">
+        <h1 class="text-3xl font-black orange-tim uppercase tracking-tighter">Tim's Resto</h1>
+        <div id="table-display" class="mt-2 px-3 py-1 bg-white text-black text-[10px] inline-block rounded-full font-bold uppercase tracking-widest">Chargement table...</div>
+    </header>
+
+    <main class="p-4 space-y-4">
+
+        <div class="border border-gray-800 rounded-2xl bg-gray-900 overflow-hidden" id="sec-plats">
+            <button onclick="toggleSection('sec-plats')" class="w-full p-5 flex justify-between items-center font-black uppercase text-xs tracking-widest">
+                <span>Plat du Jour (Sauces)</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-6 bg-black">
+                <div class="bg-gray-900 p-3 rounded-xl border border-gray-800 text-center">
+                    <img src="riz_sauce_graine.jpg" class="w-full h-40 object-cover rounded-lg mb-3" onerror="this.src='https://via.placeholder.com/300x200?text=Tims+Resto'">
+                    <p class="text-sm font-bold mb-3">Sauce Graine / Arachide / Claire / Feuille</p>
+                    <div class="flex gap-2 mb-3">
+                        <button onclick="selectPrice('Sauce', 2000, this)" class="price-btn">2000 F</button>
+                        <button onclick="selectPrice('Sauce', 3000, this)" class="price-btn">3000 F</button>
+                    </div>
+                    <button onclick="addWithPrice('Plat du Jour', 'Sauce')" class="w-full bg-orange-tim text-black py-3 rounded-xl font-black text-xs uppercase">Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="border border-gray-800 rounded-2xl bg-gray-900 overflow-hidden" id="sec-vol">
+            <button onclick="toggleSection('sec-vol')" class="w-full p-5 flex justify-between items-center font-black uppercase text-xs">
+                <span>Nos Volailles</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-1 bg-black text-sm">
+                <div class="item-row flex justify-between items-center"><span>Pondeuse (8000F)</span><button onclick="addFixed('Pondeuse', 8000)" class="bg-orange-tim text-black px-4 py-1 rounded-lg font-bold">+</button></div>
+                <div class="item-row flex justify-between items-center"><span>Poulet de Chair (5000F)</span><button onclick="addFixed('Poulet de Chair', 5000)" class="bg-orange-tim text-black px-4 py-1 rounded-lg font-bold">+</button></div>
+                <div class="item-row flex justify-between items-center"><span>Poulet Africain (10000F)</span><button onclick="addFixed('Poulet Africain', 10000)" class="bg-orange-tim text-black px-4 py-1 rounded-lg font-bold">+</button></div>
+                <div class="item-row flex justify-between items-center"><span>Pintade (13000F)</span><button onclick="addFixed('Pintade', 13000)" class="bg-orange-tim text-black px-4 py-1 rounded-lg font-bold">+</button></div>
+                <div class="item-row flex justify-between items-center"><span>Cailles (3000F)</span><button onclick="addFixed('Cailles', 3000)" class="bg-orange-tim text-black px-4 py-1 rounded-lg font-bold">+</button></div>
+            </div>
+        </div>
+
+        <div class="border border-gray-800 rounded-2xl bg-gray-900 overflow-hidden" id="sec-poi">
+            <button onclick="toggleSection('sec-poi')" class="w-full p-5 flex justify-between items-center font-black uppercase text-xs">
+                <span>Nos Poissons</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-4 bg-black">
+                <div class="p-3 bg-gray-900 rounded-xl border border-gray-800">
+                    <p class="text-xs font-bold mb-2 uppercase">Carpe / Sosso / Machoiron</p>
+                    <div class="flex gap-2 mb-3">
+                        <button onclick="selectPrice('Poi', 2500, this)" class="price-btn">2500 F</button>
+                        <button onclick="selectPrice('Poi', 5000, this)" class="price-btn">5000 F</button>
+                    </div>
+                    <button onclick="addWithPrice('Poisson', 'Poi')" class="w-full bg-white text-black py-2 rounded-xl font-black text-[10px] uppercase">Ajouter</button>
+                </div>
+                <div class="item-row flex justify-between px-2 text-xs"><span>Crevettes (2500F)</span><button onclick="addFixed('Crevettes', 2500)" class="orange-tim font-bold">AJOUTER +</button></div>
+                <div class="item-row flex justify-between px-2 text-xs"><span>Ecrevisse (3500F)</span><button onclick="addFixed('Ecrevisse', 3500)" class="orange-tim font-bold">AJOUTER +</button></div>
+            </div>
+        </div>
+
+        <div class="border border-gray-800 rounded-2xl bg-gray-900 overflow-hidden" id="sec-pat">
+            <button onclick="toggleSection('sec-pat')" class="w-full p-5 flex justify-between items-center font-black uppercase text-xs">
+                <span>Nos Pattes (Spaghetti)</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-1 bg-black text-sm">
+                <div class="item-row flex justify-between"><span>Spag. Bolognaise</span><button onclick="addFixed('Spag. Bolognaise', 2500)" class="orange-tim font-bold">2500F +</button></div>
+                <div class="item-row flex justify-between"><span>Spag. Diallo</span><button onclick="addFixed('Spag. Diallo', 2000)" class="orange-tim font-bold">2000F +</button></div>
+                <div class="item-row flex justify-between"><span>Spag. Blanc/Poulet</span><button onclick="addFixed('Spag. Poulet', 2000)" class="orange-tim font-bold">2000F +</button></div>
+                <div class="item-row flex justify-between"><span>Spag. Crème Crevettes</span><button onclick="addFixed('Spag. Crème Crev.', 3500)" class="orange-tim font-bold">3500F +</button></div>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-black border-t-2 border-orange-tim z-50">
+        <div class="flex justify-between items-center mb-4 px-2">
+            <span class="text-gray-500 text-[10px] uppercase font-bold">Total à payer</span>
+            <span id="total-display" class="text-2xl font-black orange-tim">0 FCFA</span>
+        </div>
+        <button onclick="sendToWhatsApp()" class="w-full bg-orange-tim text-black py-4 rounded-2xl font-black uppercase text-sm flex items-center justify-center gap-2">
+            <i class="fab fa-whatsapp text-lg"></i> Envoyer la Commande
+        </button>
+    </div>
+
+    <script>
+        // Fonctions de base
+        function toggleSection(id) {
+            document.getElementById(id).classList.toggle('active');
+        }
+
+        let cart = [];
+        let priceSelections = {};
+
+        // Sélectionner un prix pour les plats à double tarif
+        function selectPrice(prodId, price, btn) {
+            priceSelections[prodId] = price;
+            // Retirer la couleur des autres boutons du groupe
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.price-btn').forEach(b => b.classList.remove('selected'));
+            // Ajouter la couleur au bouton cliqué
+            btn.classList.add('selected');
+        }
+
+        // Ajouter un plat avec prix variable (Sauces, Poissons)
+        function addWithPrice(name, prodId) {
+            if (!priceSelections[prodId]) {
+                alert("Oups ! Cliquez d'abord sur le prix (2000 ou 3000) avant d'ajouter.");
+                return;
+            }
+            cart.push({ n: name, p: priceSelections[prodId] });
+            updateUI();
+        }
+
+        // Ajouter un plat avec prix fixe (Volailles, Pattes)
+        function addFixed(name, price) {
+            cart.push({ n: name, p: price });
+            updateUI();
+        }
+
+        // Mettre à jour le prix total affiché
+        function updateUI() {
+            const total = cart.reduce((sum, item) => sum + item.p, 0);
+            document.getElementById('total-display').innerText = total + " FCFA";
+        }
+
+        // Envoyer sur WhatsApp
+        function sendToWhatsApp() {
+            if (cart.length === 0) {
+                alert("Votre panier est vide ! Choisissez des plats d'abord.");
+                return;
+            }
+            const params = new URLSearchParams(window.location.search);
+            const tableNum = params.get('table') || "Non précisée";
+            
+            let message = `*COMMANDE TIM'S RESTO*\n📍 *TABLE : ${tableNum}*\n\n`;
+            cart.forEach(item => {
+                message += `• ${item.n} (${item.p} F)\n`;
+            });
+            const totalFinal = cart.reduce((sum, item) => sum + item.p, 0);
+            message += `\n*TOTAL : ${totalFinal} FCFA*`;
+            
+            window.location.href = `https://wa.me/2250779212851?text=${encodeURIComponent(message)}`;
+        }
+
+        // Initialisation Table
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('table-display').innerText = "Table : " + (params.get('table') || "Client");
+    </script>
+</body>
+</html>
