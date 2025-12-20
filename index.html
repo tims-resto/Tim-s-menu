@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim's Resto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .orange-tim { color: #FF8C00; }
+        .bg-orange-tim { background-color: #FF8C00; }
+        .section-content { display: none; }
+        .active .section-content { display: block; }
+        .rotate-icon { transition: transform 0.3s ease; }
+        .active .rotate-icon { transform: rotate(180deg); }
+        .price-btn { border: 1px solid #444; padding: 10px; border-radius: 10px; flex: 1; text-align: center; font-size: 11px; font-weight: bold; }
+        .price-btn.selected { background: #FF8C00; color: #000; border-color: #FF8C00; }
+        .qty-btn { width: 32px; height: 32px; display: flex; items-center; justify-content: center; border-radius: 8px; font-weight: bold; }
+    </style>
+</head>
+<body class="pb-44">
+
+    <header class="p-6 text-center border-b border-gray-800 bg-black sticky top-0 z-50">
+        <h1 class="text-3xl font-black orange-tim uppercase tracking-tighter">Tim's Resto</h1>
+        <div id="table-display" class="mt-2 px-3 py-1 bg-white text-black text-[10px] inline-block rounded-full font-bold uppercase tracking-widest">Table...</div>
+    </header>
+
+    <main class="p-4 space-y-4">
+
+        <div class="border border-gray-800 rounded-2xl bg-gray-900 overflow-hidden" id="sec-plats">
+            <button onclick="toggleSection('sec-plats')" class="w-full p-5 flex justify-between items-center font-black uppercase text-xs tracking-widest">
+                <span>Plat du Jour (Sauces)</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-6 bg-black">
+                <div class="bg-gray-900 p-3 rounded-xl border border-gray-800">
+                    <img src="riz_sauce_graine.jpg" class="w-full h-40 object-cover rounded-lg mb-3 shadow-lg" alt="Sauce Graine">
+                    <p class="text-sm font-bold mb-3">Sauces (Graine, Arachide, Claire, Feuille)</p>
+                    <div class="flex gap-2 mb-4">
+                        <button onclick="selectPrice('Sauce', 2000, this)" class="price-btn">2000 F</button>
+                        <button onclick="selectPrice('Sauce', 3000, this)" class="price-btn">3000 F</button>
+                    </div>
+                    <div class="flex items-center justify-between bg-black p-2 rounded-xl">
+                        <span class="text-xs font-bold px-2">Quantité : <span id="q-Sauce">0</span></span>
+                        <div class="flex gap-2">
+                            <button onclick="updateQty('Sauce', -1, 'Plat du Jour')" class="qty-btn bg-gray-800 text-white">-</button>
+                            <button onclick="addWithPrice('Plat du Jour', 'Sauce')" class="qty-btn bg-orange-tim text-black">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="border border-gray-800 rounded-2xl bg-gray-900 overflow-hidden" id="sec-pat">
+            <button onclick="toggleSection('sec-pat')" class="w-full p-5 flex justify-between items-center font-black uppercase text-xs tracking-widest">
+                <span>Nos Pattes (Spaghetti)</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-4 bg-black">
+                <div class="bg-gray-900 p-3 rounded-xl border border-gray-800">
+                    <img src="spaghetti_poulet.jpg" class="w-full h-40 object-cover rounded-lg mb-3 shadow-lg" alt="Spaghetti">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold">Spaghetti Blanc/Poulet</span>
+                        <span class="orange-tim font-bold">2000 F</span>
+                    </div>
+                    <div class="flex items-center justify-between bg-black p-2 rounded-xl">
+                        <span class="text-xs">Commandé : <span id="q-Spag">0</span></span>
+                        <div class="flex gap-2">
+                            <button onclick="updateQty('Spag', -1, 'Spag. Blanc/Poulet', 2000)" class="qty-btn bg-gray-800 text-white">-</button>
+                            <button onclick="updateQty('Spag', 1, 'Spag. Blanc/Poulet', 2000)" class="qty-btn bg-orange-tim text-black">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="border border-gray-800 rounded-2xl bg-gray-900 overflow-hidden" id="sec-vol">
+            <button onclick="toggleSection('sec-vol')" class="w-full p-5 flex justify-between items-center font-black uppercase text-xs tracking-widest">
+                <span>Nos Volailles</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-3 bg-black">
+                <div class="flex justify-between items-center p-3 bg-gray-900 rounded-lg">
+                    <span class="text-xs font-bold">Pondeuse (8000F)</span>
+                    <div class="flex items-center gap-3">
+                        <button onclick="updateQty('Pond', -1, 'Pondeuse', 8000)" class="qty-btn bg-gray-800 text-xs">-</button>
+                        <span id="q-Pond" class="text-xs font-bold">0</span>
+                        <button onclick="updateQty('Pond', 1, 'Pondeuse', 8000)" class="qty-btn bg-orange-tim text-black text-xs">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-black border-t-2 border-orange-tim z-50">
+        <div class="flex justify-between items-center mb-4 px-2">
+            <span class="text-gray-500 text-[10px] uppercase font-bold">Total commande</span>
+            <span id="total-display" class="text-2xl font-black orange-tim">0 FCFA</span>
+        </div>
+        <button onclick="sendToWhatsApp()" class="w-full bg-orange-tim text-black py-4 rounded-2xl font-black uppercase text-sm">Passer la Commande</button>
+    </div>
+
+    <script>
+        function toggleSection(id) { document.getElementById(id).classList.toggle('active'); }
+
+        let cart = {}; 
+        let priceSelections = {};
+
+        function selectPrice(id, price, btn) {
+            priceSelections[id] = price;
+            btn.parentElement.querySelectorAll('.price-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        // Pour les plats à prix variable (Sauces)
+        function addWithPrice(name, id) {
+            if (!priceSelections[id]) return alert("Choisissez un prix d'abord !");
+            let key = name + " " + priceSelections[id];
+            if (!cart[key]) cart[key] = { qty: 0, p: priceSelections[id], n: name };
+            cart[key].qty++;
+            updateUI();
+            document.getElementById('q-'+id).innerText = cart[key].qty;
+        }
+
+        // Pour les plats à prix fixe (Volailles, Pattes)
+        function updateQty(id, delta, name, price) {
+            let key = name;
+            if (!cart[key]) cart[key] = { qty: 0, p: price, n: name };
+            cart[key].qty += delta;
+            if (cart[key].qty < 0) cart[key].qty = 0;
+            updateUI();
+            document.getElementById('q-'+id).innerText = cart[key].qty;
+        }
+
+        function updateUI() {
+            let total = 0;
+            for (let k in cart) { total += (cart[k].qty * cart[k].p); }
+            document.getElementById('total-display').innerText = total + " FCFA";
+        }
+
+        function sendToWhatsApp() {
+            let message = "*COMMANDE TIM'S RESTO*\n\n";
+            let hasItems = false;
+            for (let k in cart) {
+                if (cart[k].qty > 0) {
+                    message += `• ${cart[k].qty}x ${cart[k].n} (${cart[k].p}F)\n`;
+                    hasItems = true;
+                }
+            }
+            if (!hasItems) return alert("Panier vide !");
+            let total = document.getElementById('total-display').innerText;
+            message += `\n*TOTAL : ${total}*`;
+            window.location.href = `https://wa.me/2250779212851?text=${encodeURIComponent(message)}`;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('table-display').innerText = "Table : " + (params.get('table') || "Client");
+    </script>
+</body>
+</html>
