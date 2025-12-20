@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim's Resto - Menu Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .orange-tim { color: #FF8C00; }
+        .bg-orange-tim { background-color: #FF8C00; }
+        .section-content { display: none; }
+        .active .section-content { display: block; }
+        .rotate-icon { transition: transform 0.3s ease; }
+        .active .rotate-icon { transform: rotate(180deg); }
+        .price-chip { border: 1px solid #333; transition: 0.2s; }
+        .price-chip.selected { background: #FF8C00; color: #000; border-color: #FF8C00; }
+    </style>
+</head>
+<body class="pb-40">
+
+    <header class="p-6 text-center border-b border-gray-800 bg-black sticky top-0 z-50">
+        <h1 class="text-3xl font-black orange-tim uppercase tracking-tighter">Tim's Resto</h1>
+        <div id="table-display" class="mt-2 px-3 py-1 bg-white text-black text-[10px] inline-block rounded-full font-bold uppercase">Table : Non définie</div>
+    </header>
+
+    <main class="p-4 space-y-4">
+
+        <div class="accordion-item border border-gray-800 rounded-2xl bg-gray-900" id="plats">
+            <button onclick="toggleSection('plats')" class="w-full p-5 flex justify-between items-center text-left font-bold uppercase text-xs">
+                <span>Plats du Jour (Sauces)</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-6 border-t border-gray-800">
+                <div class="bg-black p-4 rounded-xl border border-gray-800">
+                    <img src="riz_sauce_graine.jpg" class="w-full h-32 object-cover rounded-lg mb-3">
+                    <h3 class="font-bold text-sm">Sauce Graine (Placali, Riz)</h3>
+                    <div class="flex gap-2 my-3">
+                        <button onclick="setPrice('Graine', 2000, this)" class="price-chip flex-1 py-2 rounded-md text-[10px] font-bold">2000 F</button>
+                        <button onclick="setPrice('Graine', 3000, this)" class="price-chip flex-1 py-2 rounded-md text-[10px] font-bold">3000 F</button>
+                    </div>
+                    <button onclick="add('Sauce Graine', 'Graine')" class="w-full bg-orange-tim text-black py-2 rounded-lg font-black text-[10px] uppercase">Ajouter</button>
+                </div>
+                <div class="bg-black p-4 rounded-xl border border-gray-800">
+                    <img src="riz_sauce_claire.jpg" class="w-full h-32 object-cover rounded-lg mb-3">
+                    <h3 class="font-bold text-sm">Sauce Claire (Foutou, Riz)</h3>
+                    <div class="flex gap-2 my-3">
+                        <button onclick="setPrice('Claire', 2000, this)" class="price-chip flex-1 py-2 rounded-md text-[10px] font-bold">2000 F</button>
+                        <button onclick="setPrice('Claire', 3000, this)" class="price-chip flex-1 py-2 rounded-md text-[10px] font-bold">3000 F</button>
+                    </div>
+                    <button onclick="add('Sauce Claire', 'Claire')" class="w-full bg-orange-tim text-black py-2 rounded-lg font-black text-[10px] uppercase">Ajouter</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item border border-gray-800 rounded-2xl bg-gray-900" id="volailles">
+            <button onclick="toggleSection('volailles')" class="w-full p-5 flex justify-between items-center text-left font-bold uppercase text-xs">
+                <span>Nos Volailles</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-3 border-t border-gray-800">
+                <div class="flex justify-between items-center p-3 bg-black rounded-lg border border-gray-800">
+                    <span class="text-xs">Poulet Africain</span>
+                    <button onclick="addFixed('Poulet Africain', 10000)" class="bg-orange-tim text-black px-3 py-1 rounded-md text-[10px] font-bold">10 000 F</button>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-black rounded-lg border border-gray-800">
+                    <span class="text-xs">Pintade</span>
+                    <button onclick="addFixed('Pintade', 13000)" class="bg-orange-tim text-black px-3 py-1 rounded-md text-[10px] font-bold">13 000 F</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item border border-gray-800 rounded-2xl bg-gray-900" id="spaghetti">
+            <button onclick="toggleSection('spaghetti')" class="w-full p-5 flex justify-between items-center text-left font-bold uppercase text-xs">
+                <span>Nos Pattes (Spaghetti)</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-4 border-t border-gray-800">
+                <div class="bg-black rounded-xl overflow-hidden border border-gray-800">
+                    <img src="spaghetti_poulet.jpg" class="w-full h-32 object-cover">
+                    <div class="p-3 flex justify-between items-center">
+                        <span class="text-xs font-bold">Spaghetti Blanc/Poulet</span>
+                        <button onclick="addFixed('Spag. Blanc/Poulet', 2000)" class="bg-orange-tim text-black px-3 py-1 rounded-md text-[10px] font-bold">2000 F</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-black border-t border-orange-tim z-50">
+        <div class="flex justify-between items-center mb-4 px-2">
+            <span class="text-gray-400 text-xs">Total estimé</span>
+            <span id="total" class="text-xl font-black orange-tim">0 FCFA</span>
+        </div>
+        <button onclick="send()" class="w-full bg-orange-tim text-black py-4 rounded-xl font-black uppercase text-sm">Commander via WhatsApp</button>
+    </div>
+
+    <script>
+        function toggleSection(id) { document.getElementById(id).classList.toggle('active'); }
+
+        let cart = [];
+        let selections = {};
+
+        function setPrice(id, price, btn) {
+            selections[id] = price;
+            btn.parentElement.querySelectorAll('.price-chip').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+        }
+
+        function add(name, selId) {
+            if(!selections[selId]) return alert("Choisissez un prix");
+            cart.push({ name: name, price: selections[selId] });
+            updateTotal();
+        }
+
+        function addFixed(name, price) {
+            cart.push({ name: name, price: price });
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = cart.reduce((s, i) => s + i.price, 0);
+            document.getElementById('total').innerText = total + " FCFA";
+        }
+
+        function send() {
+            if(cart.length === 0) return alert("Panier vide");
+            let msg = "*NOUVELLE COMMANDE*\n";
+            cart.forEach(i => msg += `• ${i.name} : ${i.price} F\n`);
+            window.location.href = `https://wa.me/2250779212851?text=${encodeURIComponent(msg)}`;
+        }
+    </script>
+</body>
+</html>
