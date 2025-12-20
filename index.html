@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim's Resto - Menu Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #000; color: #fff; font-family: 'Inter', sans-serif; }
+        .orange-tim { color: #FF8C00; }
+        .bg-orange-tim { background-color: #FF8C00; }
+        .section-content { display: none; }
+        .active .section-content { display: block; }
+        .rotate-icon { transition: transform 0.3s ease; }
+        .active .rotate-icon { transform: rotate(180deg); }
+    </style>
+</head>
+<body class="pb-40">
+
+    <header class="p-6 text-center border-b border-gray-800 bg-black sticky top-0 z-50">
+        <h1 class="text-3xl font-black orange-tim uppercase tracking-tighter">Tim's Resto</h1>
+        <div id="table-display" class="mt-2 px-3 py-1 bg-white text-black text-[10px] inline-block rounded-full font-bold uppercase">Table : Non définie</div>
+    </header>
+
+    <main class="p-4 space-y-4">
+
+        <div class="accordion-item border border-gray-800 rounded-2xl bg-gray-900" id="plats-du-jour">
+            <button onclick="toggleSection('plats-du-jour')" class="w-full p-5 flex justify-between items-center text-left font-bold uppercase tracking-widest text-sm">
+                <span>Plats du Jour (Sauces)</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-6 border-t border-gray-800">
+                
+                <div class="bg-black rounded-xl overflow-hidden border border-gray-800">
+                    <img src="riz_sauce_graine.jpg" class="w-full h-44 object-cover">
+                    <div class="p-4 flex justify-between items-center">
+                        <div><h3 class="font-bold">Riz Sauce Graine</h3><p class="orange-tim font-black">3000 F</p></div>
+                        <button onclick="addQty('Riz Sauce Graine', 3000)" class="bg-orange-tim text-black p-3 rounded-lg font-bold">+</button>
+                    </div>
+                </div>
+
+                <div class="bg-black rounded-xl overflow-hidden border border-gray-800">
+                    <img src="riz_sauce_claire.jpg" class="w-full h-44 object-cover">
+                    <div class="p-4 flex justify-between items-center">
+                        <div><h3 class="font-bold">Riz Sauce Claire</h3><p class="orange-tim font-black">3000 F</p></div>
+                        <button onclick="addQty('Riz Sauce Claire', 3000)" class="bg-orange-tim text-black p-3 rounded-lg font-bold">+</button>
+                    </div>
+                </div>
+
+                <div class="bg-black rounded-xl overflow-hidden border border-gray-800">
+                    <img src="riz_sauce_feuille.jpg" class="w-full h-44 object-cover">
+                    <div class="p-4 flex justify-between items-center">
+                        <div><h3 class="font-bold">Riz Sauce Feuille</h3><p class="orange-tim font-black">3000 F</p></div>
+                        <button onclick="addQty('Riz Sauce Feuille', 3000)" class="bg-orange-tim text-black p-3 rounded-lg font-bold">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item border border-gray-800 rounded-2xl bg-gray-900" id="nos-pattes">
+            <button onclick="toggleSection('nos-pattes')" class="w-full p-5 flex justify-between items-center text-left font-bold uppercase tracking-widest text-sm">
+                <span>Nos Pattes (Spaghetti)</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-6 border-t border-gray-800">
+                <div class="bg-black rounded-xl overflow-hidden border border-gray-800">
+                    <img src="spaghetti_poulet.jpg" class="w-full h-44 object-cover">
+                    <div class="p-4 flex justify-between items-center">
+                        <div><h3 class="font-bold text-sm">Spaghetti Poulet</h3><p class="orange-tim font-black">2000 F</p></div>
+                        <button onclick="addQty('Spaghetti Poulet', 2000)" class="bg-orange-tim text-black p-3 rounded-lg font-bold">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item border border-gray-800 rounded-2xl bg-gray-900" id="accompagnements">
+            <button onclick="toggleSection('accompagnements')" class="w-full p-5 flex justify-between items-center text-left font-bold uppercase tracking-widest text-sm">
+                <span>Accompagnements</span>
+                <i class="fas fa-chevron-down orange-tim rotate-icon"></i>
+            </button>
+            <div class="section-content p-4 space-y-4 border-t border-gray-800">
+                <div class="bg-black p-4 rounded-xl flex justify-between items-center border border-gray-800">
+                    <span class="text-sm font-bold">Riz / Attiéké</span>
+                    <div class="flex items-center gap-3">
+                        <span class="orange-tim font-bold">500 F</span>
+                        <button onclick="addQty('Accompagnement Riz/Attieke', 500)" class="bg-orange-tim text-black px-3 py-1 rounded-lg">+</button>
+                    </div>
+                </div>
+                <div class="bg-black p-4 rounded-xl flex justify-between items-center border border-gray-800">
+                    <span class="text-sm font-bold">Frites / Alloco / Igname</span>
+                    <div class="flex items-center gap-3">
+                        <span class="orange-tim font-bold">1000 F</span>
+                        <button onclick="addQty('Frites/Alloco/Igname', 1000)" class="bg-orange-tim text-black px-3 py-1 rounded-lg">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-black border-t border-orange-tim z-50">
+        <div class="max-w-md mx-auto flex justify-between items-center gap-4">
+            <div>
+                <p class="text-[10px] text-gray-500 uppercase font-bold">Total à payer</p>
+                <p id="total-price" class="text-xl font-black orange-tim leading-none">0 FCFA</p>
+            </div>
+            <button onclick="sendWhatsApp()" class="flex-1 bg-orange-tim text-black py-4 rounded-2xl font-black uppercase text-sm flex items-center justify-center gap-2">
+                <i class="fab fa-whatsapp"></i> Envoyer Commande
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(id) {
+            const item = document.getElementById(id);
+            item.classList.toggle('active');
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const table = urlParams.get('table') || "Non spécifiée";
+        document.getElementById('table-display').innerText = "Table : " + table;
+
+        let cart = {};
+
+        function addQty(name, price) {
+            if (!cart[name]) cart[name] = { qty: 0, price: price };
+            cart[name].qty += 1;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = 0;
+            for (let item in cart) {
+                total += cart[item].qty * cart[item].price;
+            }
+            document.getElementById('total-price').innerText = total + " FCFA";
+        }
+
+        function sendWhatsApp() {
+            let message = `*COMMANDE TIM'S RESTO*\n📍 *TABLE : ${table}*\n\n`;
+            let empty = true;
+            for (let item in cart) {
+                if (cart[item].qty > 0) {
+                    message += `• ${cart[item].qty}x ${item}\n`;
+                    empty = false;
+                }
+            }
+            if (empty) return alert("Le panier est vide !");
+            
+            const phone = "2250779212851";
+            window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        }
+    </script>
+</body>
+</html>
